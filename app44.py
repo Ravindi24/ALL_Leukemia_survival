@@ -110,7 +110,7 @@ def run():
         # Convert categorical inputs into numeric format for model input
         gen = 1 if gen == 'Male' else 0  # Male -> 1, Female -> 0
         Diagnosis = 1 if Diagnosis == 'T-ALL' else 0  # T-ALL -> 1, B-ALL -> 0
-        RiskStratification = 1 if RiskStratification == 'High Risk' else 0  # High Risk -> 1, Low Risk -> 0
+        RiskStratification = 1 if RiskStratification == 'Low Risk' else 0  # High Risk -> 1, Low Risk -> 0
 
         # Create feature list
         features = [[gen, age, Diagnosis, RiskStratification, Initial_WBC]]
