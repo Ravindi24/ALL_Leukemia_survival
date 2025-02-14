@@ -9,3 +9,4 @@ scikit-learn
 gzip
 zipfile
 os
+scikit-survival
