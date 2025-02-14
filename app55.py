@@ -52,13 +52,16 @@ def load_model():
     if not os.path.exists(extracted_model_file):
         try:
             # Decompress the .gz file
-            with gzip.open(gz_file, 'rb') as f_in:
-                with open(extracted_zip_file, 'wb') as f_out:
-                    f_out.write(f_in.read())
+            if not os.path.exists(extracted_zip_file):
+                st.info("Decompressing .gz file...")
+                with gzip.open(gz_file, 'rb') as f_in:
+                    with open(extracted_zip_file, 'wb') as f_out:
+                        f_out.write(f_in.read())
 
             # Extract the .zip file
+            st.info("Extracting .zip file...")
             with zipfile.ZipFile(extracted_zip_file, 'r') as zip_ref:
-                zip_ref.extractall()
+                zip_ref.extractall()  # Ensure rsf_model.pkl is extracted in the same directory
 
         except Exception as e:
             st.error(f"Error decompressing or extracting model: {e}")
@@ -66,10 +69,16 @@ def load_model():
 
     # Load the extracted model
     try:
+        st.info("Loading the model...")
         with open(extracted_model_file, 'rb') as file:
-            return pickle.load(file)
+            model = pickle.load(file)
+        st.success("Model loaded successfully!")
+        return model
     except FileNotFoundError:
-        st.error("Model file 'rsf_model.pkl' not found. Please ensure the file is in the correct location.")
+        st.error(f"Model file '{extracted_model_file}' not found. Please ensure the file is in the correct location.")
+        return None
+    except Exception as e:
+        st.error(f"Error loading model: {e}")
         return None
 
 # Function to preprocess inputs
