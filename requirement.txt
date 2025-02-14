@@ -6,3 +6,6 @@ pandas
 RandomSurvivalForest
 Pillow
 scikit-learn
+gzip
+zipfile
+os
