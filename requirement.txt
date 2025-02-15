@@ -10,3 +10,4 @@ gzip
 zipfile
 os
 scikit-survival
+sksurv
